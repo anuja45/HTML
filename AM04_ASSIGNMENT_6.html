@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px;
+        }
+
+        .formdesign{        
+            border: 3px solid black;
+            background-color: aqua;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: black;
+            font-style: oblique;
+            font-weight: bold;
+        }
+
+        /* Inline CSS for styling */
+        input[type="text"], select, input[type="password"], input[type="email"] {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333;
+            background-color: #f0f0f0;
+        }
+
+        .but{
+            border-radius: 16px;
+            width: 100px;
+            height: 50px;
+            font-size: 22px;
+            margin: 22px 20px;
+            font-weight: bold;
+            background-color: green;
+        }
+
+        #userInfo {
+            display: none;
+            max-width: 500px;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #45a049;
+            border-radius: 4px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        #userInfo h2 {
+            text-align: center;
+        }
+
+        #displayInfo {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    
+        <form id="registrationForm" class="formdesign">
+            <h2 style="text-align: center;">User Registration Form</h2>
+            <label for="username">User Name:</label>
+            <input type="text" id="username" name="username" required pattern="[A-Za-z ]+"><br><br>
+    
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="Male">Male
+            <input type="radio" id="female" name="gender" value="Female">Female<br><br>
+    
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required><br><br>
+    
+            <label for="state">State:</label>
+            <select id="state" name="state" required>
+                <option value="">Select State</option>
+                <option value="State 1">Maharashtra</option>
+                <option value="State 2">Punjab</option>
+                <option value="State 3">Karnataka</option>
+                <option value="State 4">Rajsthan</option>
+                <option value="State 5">Goa</option>
+            </select><br><br>
+    
+            <label for="pincode">Pin Code:</label>
+            <input type="text" id="pincode" name="pincode" required pattern="[0-9]{6}"><br><br>
+    
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+    
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="4"><br><br>
+    
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+    
+            <input class="but" type="submit" value="Submit">
+        </form>
+    
+
+    <div id="userInfo" style="display: none;">
+        <h2>Registration Successful</h2>
+        <p>User Information:</p>
+        <p id="displayInfo"></p>
+    </div>
+
+    <script>
+        // JavaScript validation
+        const form = document.getElementById('registrationForm');
+        const userInfoDiv = document.getElementById('userInfo');
+        const displayInfo = document.getElementById('displayInfo');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Perform validation here (e.g., checking password match, etc.)
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            // If all validations pass, display user information
+            const username = document.getElementById('username').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const dob = document.getElementById('dob').value;
+            const state = document.getElementById('state').value;
+            const pincode = document.getElementById('pincode').value;
+            const email = document.getElementById('email').value;
+
+            const userInfo = `
+                User Name: ${username}<br>
+                Gender: ${gender}<br>
+                Date of Birth: ${dob}<br>
+                State: ${state}<br>
+                Pin Code: ${pincode}<br>
+                Email: ${email}
+            `;
+
+            displayInfo.innerHTML = userInfo;
+            userInfoDiv.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration Form</title>
+
+    <style>
+        body {
+            padding: 10px 50px;
+        }
+
+        .formdesign {
+            font-size: 20px;
+            color: blue;
+            font-style: oblique;
+            font-weight: bold;
+        }
+
+        .formdesign input {
+            width: 50%;
+            padding: 12px 20px;
+            border: 1px solid blue;
+            margin: 14px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .formerror {
+            color: red;
+        }
+
+        .gen {
+            font-size: 20px;
+            color: blue;
+            font-style: oblique;
+            font-weight: bold;
+        }
+
+
+        .but {
+            border-radius: 16px;
+            width: 100px;
+            height: 50px;
+            font-size: 22px;
+            margin: 22px 20px;
+            font-weight: bold;
+            background-color: green;
+        }
+
+        .form{
+           background-color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center; background-color: green; color: black; font-weight: bold;">REGISTRATION FORM</h1>
+    <form action="/myaction.php" name="form" onsubmit="return validateForm()" class='form'>
+        <div class="formdesign" id="name">
+            Username: <input type="text" name="fname" required><b><span class="formerror"></span></b>
+        </div>
+
+        <div class="gen" id="gender">
+            Gender: Male<input type="radio" name="myGender">Female<input type="radio" name="myGender">
+        </div>
+
+        <div class="formdesign" id="date">
+            Date of Birth:<input type="date" name="date" style="font-size: 15px;">
+        </div>
+
+        <div class="formdesign" id="state">
+            <label for="state">List of States</label>
+            <select style="font-size: 15px;" name="states" id="state">
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Kerala">Kerala</option>
+                <option value="UP">UP</option>
+            </select>
+        </div>
+
+        <div class="formdesign" id="code">
+            Pin Code: <input type="number" name="pincode" required><b><span class="formerror"></span></b>
+        </div>
+
+        <div class="formdesign" id="email">
+            Email: <input type="email" name="femail" required><b><span class="formerror"></span></b>
+        </div>
+
+        <div class="formdesign" id="pass">
+            Password: <input type="password" name="pass" required><b><span class="formerror"></span></b>
+        </div>
+
+        <div class="formdesign" id="cpass">
+            Confirm Password: <input type="password" name="cpass" ><b><span class="formerror"></span></b>
+        </div>
+
+        <input class="but" type="submit">
+    </form>
+
+</body>
+<script>
+
+    function clearerrors() {
+        errors = document.getElementsByClassName('formerror');
+        for (let item of errors) {
+            item.innerHTML = "";
+        }
+    }
+
+    function seterror(id, error) {
+
+        element = document.getElementById(id);
+        element.getElementsByClassName('formerror')[0].innerHTML = error;
+    }
+
+    function validateForm() {
+        var returnval = true;
+        clearerrors();
+        var name = document.forms['form']["fname"].value;
+        if (name.length < 5) {
+            seterror("name", "*length of name is too short");
+            returnval = false;
+        }
+
+        if (name.length == 0) {
+            seterror("name", "*length of name cannot be zero");
+            returnval = false;
+        }
+
+        if (name.match(/[0-9]/)) {
+            seterror("name", "*only characters are allowed");
+            returnval = false;
+        }
+
+        var email = document.forms['form']["femail"].value;
+        if (email.length > 30) {
+            seterror("email", "*email length is too long");
+            returnval = false;
+        }
+
+        var pin = document.forms['form']["pincode"].value;
+        if (pin.length !=6) {
+            seterror("code", "*pin should be 6 digits");
+            returnval = false;
+        }
+
+        var password = document.forms['form']["pass"].value;
+        if (password.length != 6) {
+            seterror("pass", "*password should be 6 characters long");
+            returnval = false;
+        }
+
+        var cpassword = document.forms['form']["cpass"].value;
+        if (cpassword!=password) {
+            seterror("cpass", "*confirm password does not match with password");
+            returnval = false;
+        }
+
+        return returnval;
+    }
+
+</script>
+
+</html>
